@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             BetterRoadReadyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Better Road Ready App",
+                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Welcome to the $name!",
+        text = "Hello $name!",
         modifier = modifier
     )
 }
