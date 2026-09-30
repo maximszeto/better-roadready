@@ -21,6 +21,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
@@ -42,18 +45,48 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomePage() {
     Column(modifier = Modifier.fillMaxWidth()
-        .padding(32.dp),
+        .padding(32.dp)
+        .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     )
 
     {
         Text(text = "Driving Log")
+
+        Column(modifier = Modifier
+            .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(top = 100.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+
+            ) {
+                Text("Drive 1 ")
+                Text("Time 20mins")
+            }
+
+            Row(modifier = Modifier
+                .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+
+            ) {
+                Text("Drive 2")
+                Text("Time 35mins")
+            }
+        }
+
         var drives by remember { mutableIntStateOf(value = 0) }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Text(text = "Total Amount of Drives = $drives", modifier = Modifier.padding(10.dp))
         Button( onClick = {drives++}, modifier = Modifier.padding(32.dp)) {
             Text("Start New Drive")
         }
 
-        Text(text = "Total Amount of Drives = $drives")
     }
 }
 
