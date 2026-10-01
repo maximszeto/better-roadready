@@ -82,9 +82,23 @@ fun HomePage() {
 
         Spacer(modifier = Modifier.weight(1f))
 
+        var isDriving by remember { mutableStateOf(false) }
+
         Text(text = "Total Amount of Drives = $drives", modifier = Modifier.padding(10.dp))
-        Button( onClick = {drives++}, modifier = Modifier.padding(32.dp)) {
-            Text("Start New Drive")
+        Button(
+            onClick = {
+                isDriving = !isDriving
+
+                if (!isDriving) {
+                    drives++
+                }
+
+            },
+
+            modifier = Modifier.padding(32.dp)
+
+        ) {
+            Text(text =  if (isDriving) "End Drive" else "Start Drive")
         }
 
     }
