@@ -127,7 +127,15 @@ fun DrivingScreen() {
 
         Button(
             onClick = {
+
+                /* we change isDriving's value to be whatever is the opposite of it
+                * if its true we change it to false and vice versa*/
                 isDriving = !isDriving
+
+                /* since when the button is clicked it changes from false to true
+                * !true is false so it only adds one to drives when click end drive
+                * because that is when isDriving is false which makes !isDriving true
+                * adding one to the drives */
 
                 if(!isDriving) {
                     drives++
@@ -138,7 +146,9 @@ fun DrivingScreen() {
             Text(text = if(!isDriving) "Start Drive" else "End Drive")
         }
 
-
+        /* This is a coroutine that is asynchronous from the rest of the program
+        * if isDriving is true we will delay a second and then add one to the driving time
+        * which is 1 more second*/
         LaunchedEffect(isDriving) {
             while (isDriving) {
                 delay(1.seconds)
