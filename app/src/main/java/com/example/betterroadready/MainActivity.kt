@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.betterroadready.ui.theme.BetterRoadReadyTheme
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,11 +106,46 @@ fun HomePage() {
 fun DrivingScreen() {
     Column(
         modifier = Modifier.fillMaxWidth()
-            .padding(32.dp),
+            .padding(32.dp)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Driving Screen")
+
+        var drivingTime by remember { mutableIntStateOf(0) }
+
+        var isDriving by remember { mutableStateOf(false) }
+
+        Text(text = formatTime(drivingTime))
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Button(
+            onClick = {isDriving = !isDriving}
+        ) {
+            Text(text = if(!isDriving) "Start Drive" else "End Drive")
+        }
+
+
+        LaunchedEffect(isDriving) {
+            while (isDriving) {
+                delay(1.seconds)
+                drivingTime++
+            }
+        }
     }
+}
+
+fun formatTime(totalSeconds: Int): String {
+    val hours = totalSeconds / 3600
+    val minutes = (totalSeconds % 3600) / 60
+    val seconds = totalSeconds % 60
+    return String.format(
+        Locale.US, "%02d:%02d:%02d",
+        hours,
+        minutes,
+        seconds
+    )
 }
 
 
@@ -117,6 +156,6 @@ fun DrivingScreen() {
 @Composable
 fun GreetingPreview() {
     BetterRoadReadyTheme {
-        DrivingScreen()
+       DrivingScreen()
     }
 }
