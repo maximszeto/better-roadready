@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            HomePage()
+            DrivingScreen()
         }
     }
 }
@@ -108,7 +108,8 @@ fun DrivingScreen() {
         modifier = Modifier.fillMaxWidth()
             .padding(32.dp)
             .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         Text("Driving Screen")
 
@@ -116,12 +117,23 @@ fun DrivingScreen() {
 
         var isDriving by remember { mutableStateOf(false) }
 
+        var drives by remember { mutableIntStateOf(0)}
+
         Text(text = formatTime(drivingTime))
+
+        Text(text = "Total Drives: $drives")
 
         Spacer(modifier = Modifier.weight(1f))
 
         Button(
-            onClick = {isDriving = !isDriving}
+            onClick = {
+                isDriving = !isDriving
+
+                if(!isDriving) {
+                    drives++
+                }
+            },
+
         ) {
             Text(text = if(!isDriving) "Start Drive" else "End Drive")
         }
