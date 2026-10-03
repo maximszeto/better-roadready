@@ -31,20 +31,45 @@ import java.util.Locale
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DrivingScreen()
+            AppNavigation()
         }
     }
 }
 
+@Composable
+fun AppNavigation() {
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = "home"
+    ) {
+        composable(route = "home") {
+            HomeScreen(
+                onNavigateToDrives = {
+                    navController.navigate("driving")
+            })
+        }
+
+        composable(route = "driving") {
+            DrivingScreen(
+                onNavigateBack = {navController.popBackStack()}
+            )
+        }
+    }
+}
 
 @Composable
-fun HomePage() {
+fun HomeScreen(
+    onNavigateToDrives: () -> Unit
+) {
     Column(modifier = Modifier.fillMaxWidth()
         .padding(32.dp)
         .fillMaxSize(),
@@ -86,27 +111,38 @@ fun HomePage() {
         var isDriving by remember { mutableStateOf(false) }
 
         Text(text = "Total Amount of Drives = $drives", modifier = Modifier.padding(10.dp))
-        Button(
-            onClick = {
-                isDriving = !isDriving
-
-                if (!isDriving) {
-                    drives++
-                }
-
-            },
-
-            modifier = Modifier.padding(32.dp)
-
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text =  if (isDriving) "End Drive" else "Start Drive")
-        }
+            Button(
+                onClick = {
+                    isDriving = !isDriving
 
+                    if (!isDriving) {
+                        drives++
+                    }
+
+                },
+
+                modifier = Modifier.padding(32.dp)
+
+            ) {
+                Text(text = if (isDriving) "End Drive" else "Start Drive")
+            }
+            Button(
+                onClick = onNavigateToDrives
+            ) {
+                Text("Drives")
+            }
+        }
     }
 }
 
 @Composable
-fun DrivingScreen() {
+fun DrivingScreen(
+    onNavigateBack: () -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxWidth()
             .padding(32.dp)
@@ -128,33 +164,42 @@ fun DrivingScreen() {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        Button(
-            onClick = {
+        Row() {
+            Button(
+                onClick = {
 
-                /* we change isDriving's value to be whatever is the opposite of it
-                * if its true we change it to false and vice versa*/
-                isDriving = !isDriving
+                    /* we change isDriving's value to be whatever is the opposite of it
+                    * if its true we change it to false and vice versa*/
+                    isDriving = !isDriving
 
-                /* since when the button is clicked it changes from false to true
-                * !true is false so it only adds one to drives when click end drive
-                * because that is when isDriving is false which makes !isDriving true
-                * adding one to the drives */
+                    /* since when the button is clicked it changes from false to true
+                    * !true is false so it only adds one to drives when click end drive
+                    * because that is when isDriving is false which makes !isDriving true
+                    * adding one to the drives */
 
-                if(!isDriving) {
-                    drives++
+                    if (!isDriving) {
+                        drives++
 
-                  /* if isDriving is true that means the user just started a new drive
-                   * so we reset to 0. but this also means that if isDriving is false
-                   * we will not reset and the user can see their time. */
-                } else {
-                    drivingTime = 0
-                }
-            },
+                        /* if isDriving is true that means the user just started a new drive
+                       * so we reset to 0. but this also means that if isDriving is false
+                       * we will not reset and the user can see their time. */
+                    } else {
+                        drivingTime = 0
+                    }
 
-        ) {
-            Text(text = if(!isDriving) "Start Drive" else "End Drive")
+
+                },
+
+                ) {
+                Text(text = if (!isDriving) "Start Drive" else "End Drive")
+            }
+
+            Button(
+                onClick = onNavigateBack
+            ) {
+                Text("Back")
+            }
         }
-
         /* This is a coroutine that is asynchronous from the rest of the program
         * if isDriving is true we will delay a second and then add one to the driving time
         * which is 1 more second*/
@@ -187,6 +232,6 @@ fun formatTime(totalSeconds: Int): String {
 @Composable
 fun GreetingPreview() {
     BetterRoadReadyTheme {
-       DrivingScreen()
+        AppNavigation()
     }
 }
