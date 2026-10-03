@@ -139,6 +139,12 @@ fun DrivingScreen() {
 
                 if(!isDriving) {
                     drives++
+
+                  /* if isDriving is true that means the user just started a new drive
+                   * so we reset to 0. but this also means that if isDriving is false
+                   * we will not reset and the user can see their time. */
+                } else {
+                    drivingTime = 0
                 }
             },
 
