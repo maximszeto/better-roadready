@@ -28,6 +28,9 @@ import com.example.betterroadready.ui.theme.BetterRoadReadyTheme
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 import java.util.Locale
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
