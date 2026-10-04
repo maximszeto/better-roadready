@@ -74,11 +74,12 @@ fun HomeScreen(
         .padding(32.dp)
         .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     )
 
     {
         Text(text = "Driving Log")
-
+        /*
         Column(modifier = Modifier
             .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -103,7 +104,7 @@ fun HomeScreen(
                 Text("Time 35mins")
             }
         }
-
+*/
         var drives by remember { mutableIntStateOf(value = 0) }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -125,7 +126,7 @@ fun HomeScreen(
 
                 },
 
-                modifier = Modifier.padding(32.dp)
+                /*modifier = Modifier.padding(32.dp)*/
 
             ) {
                 Text(text = if (isDriving) "End Drive" else "Start Drive")
@@ -186,8 +187,6 @@ fun DrivingScreen(
                     } else {
                         drivingTime = 0
                     }
-
-
                 },
 
                 ) {
