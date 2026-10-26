@@ -79,71 +79,76 @@ fun AppNavigation() {
 fun HomeScreen(
     onNavigateToDrives: () -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxWidth()
-        .padding(32.dp)
-        .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    )
 
-    {
-        Text(text = "Driving Log")
-        /*
-        Column(modifier = Modifier
-            .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            Row(
-                modifier = Modifier
-                    .padding(top = 100.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+    Surface(modifier = Modifier.fillMaxSize(),
+            color = Color.Black) {
+        Column(
+            modifier = Modifier.fillMaxWidth()
+                .padding(32.dp)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        )
 
-            ) {
-                Text("Drive 1 ")
-                Text("Time 20mins")
-            }
-
-            Row(modifier = Modifier
+        {
+            Text(text = "Driving Log")
+            /*
+            Column(modifier = Modifier
                 .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 100.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+
+                ) {
+                    Text("Drive 1 ")
+                    Text("Time 20mins")
+                }
+
+                Row(modifier = Modifier
+                    .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+
+                ) {
+                    Text("Drive 2")
+                    Text("Time 35mins")
+                }
+            }
+    */
+            var drives by remember { mutableIntStateOf(value = 0) }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            var isDriving by remember { mutableStateOf(false) }
+
+            Text(text = "Total Amount of Drives = $drives", modifier = Modifier.padding(10.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
-
             ) {
-                Text("Drive 2")
-                Text("Time 35mins")
-            }
-        }
-*/
-        var drives by remember { mutableIntStateOf(value = 0) }
+                Button(
+                    onClick = {
+                        isDriving = !isDriving
 
-        Spacer(modifier = Modifier.weight(1f))
+                        if (!isDriving) {
+                            drives++
+                        }
 
-        var isDriving by remember { mutableStateOf(false) }
+                    },
 
-        Text(text = "Total Amount of Drives = $drives", modifier = Modifier.padding(10.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Button(
-                onClick = {
-                    isDriving = !isDriving
+                    /*modifier = Modifier.padding(32.dp)*/
 
-                    if (!isDriving) {
-                        drives++
-                    }
-
-                },
-
-                /*modifier = Modifier.padding(32.dp)*/
-
-            ) {
-                Text(text = if (isDriving) "End Drive" else "Start Drive")
-            }
-            Button(
-                onClick = onNavigateToDrives
-            ) {
-                Text("Drives")
+                ) {
+                    Text(text = if (isDriving) "End Drive" else "Start Drive")
+                }
+                Button(
+                    onClick = onNavigateToDrives
+                ) {
+                    Text("Drives")
+                }
             }
         }
     }
