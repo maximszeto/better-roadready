@@ -189,7 +189,10 @@ fun DrivingScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Row() {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Button(
                     onClick = {
 
