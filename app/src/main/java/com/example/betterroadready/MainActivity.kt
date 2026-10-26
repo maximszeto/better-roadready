@@ -162,7 +162,8 @@ fun DrivingScreen(
     onNavigateBack: () -> Unit
 ) {
     Surface(modifier = Modifier.fillMaxSize(),
-            color = Color.Black
+            color = Color.Black,
+            contentColor = Color.White
         ) {
 
 
