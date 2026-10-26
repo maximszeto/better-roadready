@@ -81,7 +81,10 @@ fun HomeScreen(
 ) {
 
     Surface(modifier = Modifier.fillMaxSize(),
-            color = Color.Black) {
+            color = Color.Black,
+            contentColor = Color.White
+
+    ) {
         Column(
             modifier = Modifier.fillMaxWidth()
                 .padding(32.dp)
