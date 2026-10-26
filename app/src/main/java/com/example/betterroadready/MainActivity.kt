@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,7 +37,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.material3.Surface
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,68 +153,75 @@ fun HomeScreen(
 fun DrivingScreen(
     onNavigateBack: () -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-            .padding(32.dp)
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
-        Text("Driving Screen")
+    Surface(modifier = Modifier.fillMaxSize(),
+            color = Color.Black
+        ) {
 
-        var drivingTime by remember { mutableIntStateOf(0) }
 
-        var isDriving by remember { mutableStateOf(false) }
+        Column(
+            modifier = Modifier.fillMaxWidth()
+                .padding(32.dp)
+                .fillMaxSize()
+                .background(Color.Black),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            Text("Driving Screen")
 
-        var drives by remember { mutableIntStateOf(0)}
+            var drivingTime by remember { mutableIntStateOf(0) }
 
-        Text(text = formatTime(drivingTime))
+            var isDriving by remember { mutableStateOf(false) }
 
-        Text(text = "Total Drives: $drives")
+            var drives by remember { mutableIntStateOf(0) }
 
-        Spacer(modifier = Modifier.weight(1f))
+            Text(text = formatTime(drivingTime))
 
-        Row() {
-            Button(
-                onClick = {
+            Text(text = "Total Drives: $drives")
 
-                    /* we change isDriving's value to be whatever is the opposite of it
-                    * if its true we change it to false and vice versa*/
-                    isDriving = !isDriving
+            Spacer(modifier = Modifier.weight(1f))
 
-                    /* since when the button is clicked it changes from false to true
-                    * !true is false so it only adds one to drives when click end drive
-                    * because that is when isDriving is false which makes !isDriving true
-                    * adding one to the drives */
+            Row() {
+                Button(
+                    onClick = {
 
-                    if (!isDriving) {
-                        drives++
+                        /* we change isDriving's value to be whatever is the opposite of it
+                        * if its true we change it to false and vice versa*/
+                        isDriving = !isDriving
 
-                        /* if isDriving is true that means the user just started a new drive
-                       * so we reset to 0. but this also means that if isDriving is false
-                       * we will not reset and the user can see their time. */
-                    } else {
-                        drivingTime = 0
-                    }
-                },
+                        /* since when the button is clicked it changes from false to true
+                        * !true is false so it only adds one to drives when click end drive
+                        * because that is when isDriving is false which makes !isDriving true
+                        * adding one to the drives */
 
+                        if (!isDriving) {
+                            drives++
+
+                            /* if isDriving is true that means the user just started a new drive
+                           * so we reset to 0. but this also means that if isDriving is false
+                           * we will not reset and the user can see their time. */
+                        } else {
+                            drivingTime = 0
+                        }
+                    },
+
+                    ) {
+                    Text(text = if (!isDriving) "Start Drive" else "End Drive")
+                }
+
+                Button(
+                    onClick = onNavigateBack
                 ) {
-                Text(text = if (!isDriving) "Start Drive" else "End Drive")
+                    Text("Back")
+                }
             }
-
-            Button(
-                onClick = onNavigateBack
-            ) {
-                Text("Back")
-            }
-        }
-        /* This is a coroutine that is asynchronous from the rest of the program
-        * if isDriving is true we will delay a second and then add one to the driving time
-        * which is 1 more second*/
-        LaunchedEffect(isDriving) {
-            while (isDriving) {
-                delay(1.seconds)
-                drivingTime++
+            /* This is a coroutine that is asynchronous from the rest of the program
+            * if isDriving is true we will delay a second and then add one to the driving time
+            * which is 1 more second*/
+            LaunchedEffect(isDriving) {
+                while (isDriving) {
+                    delay(1.seconds)
+                    drivingTime++
+                }
             }
         }
     }
