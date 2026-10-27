@@ -95,32 +95,7 @@ fun HomeScreen(
 
         {
             Text(text = "Driving Log")
-            /*
-            Column(modifier = Modifier
-                .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .padding(top = 100.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
 
-                ) {
-                    Text("Drive 1 ")
-                    Text("Time 20mins")
-                }
-
-                Row(modifier = Modifier
-                    .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-
-                ) {
-                    Text("Drive 2")
-                    Text("Time 35mins")
-                }
-            }
-    */
             var drives by remember { mutableIntStateOf(value = 0) }
 
             Spacer(modifier = Modifier.weight(1f))
