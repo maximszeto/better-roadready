@@ -127,6 +127,15 @@ fun HomeScreen(
                 ) {
                     Text("Drives")
                 }
+/*
+                Button(
+                    onClick =
+                )
+                {
+
+                }
+
+ */
             }
         }
     }
@@ -212,6 +221,21 @@ fun DrivingScreen(
             }
         }
     }
+}
+
+@Composable
+fun DrivingLogScreen(
+    onNavigateBack: () -> Unit
+) {
+    Surface(modifier = Modifier.fillMaxSize(),
+        color = Color.Black,
+        contentColor = Color.White
+
+    ) {
+        Text("Hey ahsdfkjasdlkfj a;lsdfajsdlkfjasl;d jfal;kjdflajs")
+    }
+
+
 }
 
 fun formatTime(totalSeconds: Int): String {
