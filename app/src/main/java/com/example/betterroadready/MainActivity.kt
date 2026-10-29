@@ -1,6 +1,7 @@
 package com.example.betterroadready
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -64,7 +65,13 @@ fun AppNavigation() {
             HomeScreen(
                 onNavigateToDrives = {
                     navController.navigate("driving")
-            })
+
+            },
+                onNavigateToLog = {
+                    navController.navigate("log")
+                }
+
+            )
         }
 
         composable(route = "driving") {
@@ -72,12 +79,19 @@ fun AppNavigation() {
                 onNavigateBack = {navController.popBackStack()}
             )
         }
+
+       composable(route = "log") {
+           DrivingLogScreen(
+               onNavigateBack =  {navController.popBackStack()}
+           )
+       }
     }
 }
 
 @Composable
 fun HomeScreen(
-    onNavigateToDrives: () -> Unit
+    onNavigateToDrives: () -> Unit,
+    onNavigateToLog: () -> Unit
 ) {
 
     Surface(modifier = Modifier.fillMaxSize(),
@@ -122,20 +136,19 @@ fun HomeScreen(
                 ) {
                     Text(text = if (isDriving) "End Drive" else "Start Drive")
                 }
+
                 Button(
                     onClick = onNavigateToDrives
                 ) {
                     Text("Drives")
                 }
-/*
+
                 Button(
-                    onClick =
+                    onClick = onNavigateToLog
                 )
                 {
-
+                    Text("Log")
                 }
-
- */
             }
         }
     }
