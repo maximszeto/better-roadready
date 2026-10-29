@@ -41,6 +41,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material3.Surface
+import org.intellij.lang.annotations.JdkConstants
 
 
 class MainActivity : ComponentActivity() {
@@ -108,7 +109,7 @@ fun HomeScreen(
         )
 
         {
-            Text(text = "Driving Log")
+            Text(text = "Better RoadReady")
 
             var drives by remember { mutableIntStateOf(value = 0) }
 
@@ -121,27 +122,6 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Button(
-                    onClick = {
-                        isDriving = !isDriving
-
-                        if (!isDriving) {
-                            drives++
-                        }
-
-                    },
-
-                    /*modifier = Modifier.padding(32.dp)*/
-
-                ) {
-                    Text(text = if (isDriving) "End Drive" else "Start Drive")
-                }
-
-                Button(
-                    onClick = onNavigateToDrives
-                ) {
-                    Text("Drives")
-                }
 
                 Button(
                     onClick = onNavigateToLog
@@ -149,6 +129,14 @@ fun HomeScreen(
                 {
                     Text("Log")
                 }
+
+                Button(
+                    onClick = onNavigateToDrives
+                ) {
+                    Text("Start Drive")
+                }
+
+
             }
         }
     }
@@ -245,7 +233,21 @@ fun DrivingLogScreen(
         contentColor = Color.White
 
     ) {
-        Text("Hey ahsdfkjasdlkfj a;lsdfajsdlkfjasl;d jfal;kjdflajs")
+        Column(modifier = Modifier.fillMaxSize()
+            .padding(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(25.dp)
+
+            ) {
+            Text("Driving Log")
+
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Button(onClick = onNavigateBack) {
+                Text("Back")
+            }
+        }
     }
 
 
@@ -271,6 +273,7 @@ fun formatTime(totalSeconds: Int): String {
 @Composable
 fun GreetingPreview() {
     BetterRoadReadyTheme {
-        AppNavigation()
+        /*AppNavigation()*/
+        DrivingLogScreen {  }
     }
 }
