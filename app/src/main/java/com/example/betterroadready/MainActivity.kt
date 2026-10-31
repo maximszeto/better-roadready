@@ -35,6 +35,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Settings
@@ -64,38 +65,88 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
+    object Home : Screen("home","Home", Icons.Default.Home)
+    object Log : Screen("log", "Log", Icons.Default.History)
+    object Drive : Screen("drive", "Drive", Icons.Default.Add)
+}
+
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    NavHost(
-        navController = navController,
-        startDestination = "home"
-    ) {
-        composable(route = "home") {
-            HomeScreen(
-                onNavigateToDrives = {
-                    navController.navigate("driving")
+    val items = listOf(
+        Screen.Log,
+        Screen.Home,
+        Screen.Drive
+    )
 
-            },
-                onNavigateToLog = {
-                    navController.navigate("log")
+    Scaffold(
+        bottomBar = {
+            NavigationBar {
+                // Read the current backstack entry to find out what screen we are on right now
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
+
+                // Loop through each screen item to create a tab in the dock
+                items.forEach { screen ->
+                   NavigationBarItem(
+                       icon = {Icon(screen.icon, contentDescription = screen.title ) },
+                       label = { Text(screen.title) },
+                       // Is this tab currently active? Compare its route to the current screen route
+                       selected = currentRoute == screen.route,
+                       onClick = {
+                           if (currentRoute != screen.route) {
+                               navController.navigate(screen.route) {
+                                   // Pop up to the start destination of the graph to
+                                   // avoid building up a massive stack of screens
+                                   popUpTo(navController.graph.findStartDestination().id) {
+                                       saveState = true
+                                   }
+                                   // avoid multiple copies of the same destination when
+                                   // re-selecting the same item
+                                   launchSingleTop = true
+                                   // restore state when re-selecting a previously selected item
+                                   restoreState = true
+
+                               }
+                           }
+                       }
+                   )
                 }
-
-            )
+            }
         }
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = "home",
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable(route = "home") {
+                HomeScreen(
+                    onNavigateToDrives = {
+                        navController.navigate("driving")
 
-        composable(route = "driving") {
-            DrivingScreen(
-                onNavigateBack = {navController.popBackStack()}
-            )
+                    },
+                    onNavigateToLog = {
+                        navController.navigate("log")
+                    }
+
+                )
+            }
+
+            composable(route = "driving") {
+                DrivingScreen(
+                    onNavigateBack = {navController.popBackStack()}
+                )
+            }
+
+            composable(route = "log") {
+                DrivingLogScreen(
+                    onNavigateBack =  {navController.popBackStack()}
+                )
+            }
         }
-
-       composable(route = "log") {
-           DrivingLogScreen(
-               onNavigateBack =  {navController.popBackStack()}
-           )
-       }
     }
 }
 
@@ -283,7 +334,6 @@ fun formatTime(totalSeconds: Int): String {
 @Composable
 fun GreetingPreview() {
     BetterRoadReadyTheme {
-        /*AppNavigation()*/
-        DrivingLogScreen {  }
+        AppNavigation()
     }
 }
