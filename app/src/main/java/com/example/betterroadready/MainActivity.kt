@@ -122,7 +122,7 @@ fun AppNavigation() {
             startDestination = "home",
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(route = "home") {
+            composable(Screen.Home.route) {
                 HomeScreen(
                     onNavigateToDrives = {
                         navController.navigate("driving")
@@ -135,13 +135,13 @@ fun AppNavigation() {
                 )
             }
 
-            composable(route = "driving") {
+            composable(Screen.Drive.route) {
                 DrivingScreen(
                     onNavigateBack = {navController.popBackStack()}
                 )
             }
 
-            composable(route = "log") {
+            composable(Screen.Log.route) {
                 DrivingLogScreen(
                     onNavigateBack =  {navController.popBackStack()}
                 )
