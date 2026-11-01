@@ -123,38 +123,22 @@ fun AppNavigation() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen(
-                    onNavigateToDrives = {
-                        navController.navigate("driving")
-
-                    },
-                    onNavigateToLog = {
-                        navController.navigate("log")
-                    }
-
-                )
+                HomeScreen()
             }
 
             composable(Screen.Drive.route) {
-                DrivingScreen(
-                    onNavigateBack = {navController.popBackStack()}
-                )
+                DrivingScreen()
             }
 
             composable(Screen.Log.route) {
-                DrivingLogScreen(
-                    onNavigateBack =  {navController.popBackStack()}
-                )
+                DrivingLogScreen()
             }
         }
     }
 }
 
 @Composable
-fun HomeScreen(
-    onNavigateToDrives: () -> Unit,
-    onNavigateToLog: () -> Unit
-) {
+fun HomeScreen() {
 
     Surface(modifier = Modifier.fillMaxSize(),
             color = Color.Black,
@@ -179,34 +163,13 @@ fun HomeScreen(
             var isDriving by remember { mutableStateOf(false) }
 
             Text(text = "Total Amount of Drives = $drives", modifier = Modifier.padding(10.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
 
-                Button(
-                    onClick = onNavigateToLog
-                )
-                {
-                    Text("Log")
-                }
-
-                Button(
-                    onClick = onNavigateToDrives
-                ) {
-                    Text("Start Drive")
-                }
-
-
-            }
         }
     }
 }
 
 @Composable
-fun DrivingScreen(
-    onNavigateBack: () -> Unit
-) {
+fun DrivingScreen() {
     Surface(modifier = Modifier.fillMaxSize(),
             color = Color.Black,
             contentColor = Color.White
@@ -266,11 +229,6 @@ fun DrivingScreen(
                     Text(text = if (!isDriving) "Start Drive" else "End Drive")
                 }
 
-                Button(
-                    onClick = onNavigateBack
-                ) {
-                    Text("Back")
-                }
             }
             /* This is a coroutine that is asynchronous from the rest of the program
             * if isDriving is true we will delay a second and then add one to the driving time
@@ -287,7 +245,7 @@ fun DrivingScreen(
 
 @Composable
 fun DrivingLogScreen(
-    onNavigateBack: () -> Unit
+
 ) {
     Surface(modifier = Modifier.fillMaxSize(),
         color = Color.Black,
@@ -305,14 +263,10 @@ fun DrivingLogScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Button(onClick = onNavigateBack) {
-                Text("Back")
+
             }
         }
     }
-
-
-}
 
 fun formatTime(totalSeconds: Int): String {
     val hours = totalSeconds / 3600
