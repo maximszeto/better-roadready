@@ -201,7 +201,7 @@ fun DrivingScreen() {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.Center
             ) {
                 Button(
                     onClick = {
@@ -298,6 +298,6 @@ class Drive {
 @Composable
 fun GreetingPreview() {
     BetterRoadReadyTheme {
-        AppNavigation()
+        DrivingScreen()
     }
 }
