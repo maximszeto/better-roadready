@@ -53,6 +53,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.navigationevent.NavigationEventInfo
 
 
 class MainActivity : ComponentActivity() {
@@ -278,6 +279,15 @@ fun formatTime(totalSeconds: Int): String {
         minutes,
         seconds
     )
+}
+
+class Drive {
+    val id: String = ""
+    var length: String = ""
+    var startTime: String = ""
+    var endTime: String = ""
+    var duration: Int = 0
+    var isNightDrive: Boolean = false
 }
 
 
