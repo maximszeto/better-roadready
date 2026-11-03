@@ -298,6 +298,6 @@ class Drive {
 @Composable
 fun GreetingPreview() {
     BetterRoadReadyTheme {
-        DrivingScreen()
+        AppNavigation()
     }
 }
