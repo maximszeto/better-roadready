@@ -218,6 +218,7 @@ fun DrivingScreen() {
                         if (!isDriving) {
                             drives++
 
+                            val NewDrive = Drive("abc", )
                             /* if isDriving is true that means the user just started a new drive
                            * so we reset to 0. but this also means that if isDriving is false
                            * we will not reset and the user can see their time. */
@@ -281,13 +282,14 @@ fun formatTime(totalSeconds: Int): String {
     )
 }
 
-class Drive {
-    val id: String = ""
-    var length: String = ""
-    var startTime: String = ""
-    var endTime: String = ""
-    var duration: Int = 0
-    var isNightDrive: Boolean = false
+class Drive (val id: String = "",
+             var length: String = "",
+             var startTime: String = "",
+             var endTime: String = "",
+             var duration: Int = 0,
+             var isNightDrive: Boolean = false)
+        {
+
 }
 
 
