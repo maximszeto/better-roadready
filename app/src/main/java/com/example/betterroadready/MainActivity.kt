@@ -55,7 +55,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.navigationevent.NavigationEventInfo
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -289,14 +288,13 @@ class Drive (val id: String = "",
              var duration: Int = 0,
              var isNightDrive: Boolean = false)
         {
-
 }
-
 
 @Preview(
     showBackground = true,
     showSystemUi = true,
 )
+
 @Composable
 fun GreetingPreview() {
     BetterRoadReadyTheme {
