@@ -217,7 +217,7 @@ fun DrivingScreen() {
                         if (!isDriving) {
                             drives++
 
-                            val NewDrive = Drive("abc", )
+                            // val NewDrive = Drive(randomID(), drivingTime,  )
                             /* if isDriving is true that means the user just started a new drive
                            * so we reset to 0. but this also means that if isDriving is false
                            * we will not reset and the user can see their time. */
@@ -282,17 +282,17 @@ fun formatTime(totalSeconds: Int): String {
 }
 
 fun randomID(): String {
-    var ID = ""
+    var id = ""
     val alphabet = listOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z')
     for (letter in alphabet) {
         val randomIndex = (0..25).random()
-        ID = ID + alphabet[randomIndex]
+        id = id + alphabet[randomIndex]
     }
-    return ID
+    return id
 }
 
 class Drive (val id: String = "",
-             var length: String = "",
+             var length: Int = 0,
              var startTime: String = "",
              var endTime: String = "",
              var duration: Int = 0,
