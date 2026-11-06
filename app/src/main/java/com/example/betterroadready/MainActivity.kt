@@ -281,6 +281,16 @@ fun formatTime(totalSeconds: Int): String {
     )
 }
 
+fun randomID(): String {
+    var ID = ""
+    val alphabet = listOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z')
+    for (letter in alphabet) {
+        val randomIndex = (0..25).random()
+        ID = ID + alphabet[randomIndex]
+    }
+    return ID
+}
+
 class Drive (val id: String = "",
              var length: String = "",
              var startTime: String = "",
