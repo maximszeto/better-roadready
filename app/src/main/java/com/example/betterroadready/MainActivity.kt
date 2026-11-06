@@ -54,6 +54,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.navigationevent.NavigationEventInfo
+import java.util.UUID
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -281,7 +282,7 @@ fun formatTime(totalSeconds: Int): String {
     )
 }
 
-
+fun randomID(): String = UUID.randomUUID().toString()
 
 class Drive (val id: String = "",
              var length: Int = 0,
