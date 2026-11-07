@@ -55,6 +55,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.navigationevent.NavigationEventInfo
 import java.util.UUID
+import java.lang.System
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
