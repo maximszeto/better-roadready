@@ -1,6 +1,7 @@
 package com.example.betterroadready
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -227,7 +228,7 @@ fun DrivingScreen() {
                            * we will not reset and the user can see their time. */
                         } else {
                             drivingTime = 0
-                            startTime = System.currentTimeMillis()
+                            startTime = SystemClock.elapsedRealtime()
                         }
                     },
 
@@ -235,8 +236,8 @@ fun DrivingScreen() {
                     Text(text = if (!isDriving) "Start Drive" else "End Drive")
                 }
 
-
-                Text(System.currentTimeMillis() - startTime)
+                val timeInterval = SystemClock.elapsedRealtime() - startTime
+                Text(text = "$timeInterval")
 
             }
             /* This is a coroutine that is asynchronous from the rest of the program
