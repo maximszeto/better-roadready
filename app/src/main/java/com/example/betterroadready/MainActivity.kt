@@ -194,6 +194,8 @@ fun DrivingScreen() {
 
             var drives by remember { mutableIntStateOf(0) }
 
+            var startTime: Long = 0
+
             Text(text = formatTime(drivingTime))
 
             Text(text = "Total Drives: $drives")
@@ -225,12 +227,16 @@ fun DrivingScreen() {
                            * we will not reset and the user can see their time. */
                         } else {
                             drivingTime = 0
+                            startTime = System.currentTimeMillis()
                         }
                     },
 
                     ) {
                     Text(text = if (!isDriving) "Start Drive" else "End Drive")
                 }
+
+
+                Text(System.currentTimeMillis() - startTime)
 
             }
             /* This is a coroutine that is asynchronous from the rest of the program
