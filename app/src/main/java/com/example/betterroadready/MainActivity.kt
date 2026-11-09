@@ -197,6 +197,8 @@ fun DrivingScreen() {
 
             var startTime: Long = 0
 
+            var endTime: Long = 0
+
             Text(text = formatTime(drivingTime))
 
             Text(text = "Total Drives: $drives")
@@ -221,6 +223,7 @@ fun DrivingScreen() {
 
                         if (!isDriving) {
                             drives++
+                            endTime = SystemClock.elapsedRealtime()
 
                             // val NewDrive = Drive(randomID(), drivingTime,  )
                             /* if isDriving is true that means the user just started a new drive
