@@ -205,6 +205,9 @@ fun DrivingScreen() {
 
             Spacer(modifier = Modifier.weight(1f))
 
+            val timeInterval = SystemClock.elapsedRealtime() - startTime
+            Text(text = "$timeInterval")
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
@@ -239,8 +242,6 @@ fun DrivingScreen() {
                     Text(text = if (!isDriving) "Start Drive" else "End Drive")
                 }
 
-                val timeInterval = SystemClock.elapsedRealtime() - startTime
-                Text(text = "$timeInterval")
 
             }
             /* This is a coroutine that is asynchronous from the rest of the program
