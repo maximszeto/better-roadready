@@ -200,6 +200,8 @@ fun DrivingScreen() {
 
             var endTime by remember { mutableLongStateOf(0L)}
 
+            var isNightDrive by remember {mutableStateOf(false)}
+
             // Text(text = formatTime(drivingTime))
 
             Text(text = "Total Drives: $drives")
@@ -210,6 +212,14 @@ fun DrivingScreen() {
             val elapsedDrivingTimeSeconds = elapsedDrivingTime / 1000
 
             Text(text = formatTime(elapsedDrivingTimeSeconds))
+
+            Button(
+                onClick = {
+                    isNightDrive = !isNightDrive
+                }
+            ) {
+                Text(text = if (isNightDrive) "Night Drive: True" else "Night Drive: False")
+            }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -231,7 +241,7 @@ fun DrivingScreen() {
                             drives++
                             endTime = SystemClock.elapsedRealtime()
 
-                            // val NewDrive = Drive(randomID(), drivingTime,  )
+                            val NewDrive = Drive(randomID(), elapsedDrivingTimeSeconds, startTime, endTime, isNightDrive)
                             /* if isDriving is true that means the user just started a new drive
                            * so we reset to 0. but this also means that if isDriving is false
                            * we will not reset and the user can see their time. */
@@ -297,11 +307,12 @@ fun formatTime(totalSeconds: Long): String {
     )
 }
 
+fun randomID(): String = UUID.randomUUID().toString()
 
-class Drive (val id: String = UUID.randomUUID().toString(),
+class Drive (val id: String = "",
              val duration: Long,
-             val startTime: Long? = null,
-             val endTime: Long? = null,
+             val startTime: Long,
+             val endTime: Long,
              val isNightDrive: Boolean = false)
         {
 }
