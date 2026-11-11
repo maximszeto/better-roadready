@@ -300,10 +300,9 @@ fun formatTime(totalSeconds: Long): String {
 fun randomID(): String = UUID.randomUUID().toString()
 
 class Drive (val id: String = "",
-             var length: Int = 0,
+             var duration: Long = 0L,
              var startTime: String = "",
              var endTime: String = "",
-             var duration: Int = 0,
              var isNightDrive: Boolean = false)
         {
 }
