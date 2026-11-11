@@ -206,7 +206,7 @@ fun DrivingScreen() {
 
             Spacer(modifier = Modifier.weight(1f))
 
-            elapsedDrivingTime = SystemClock.elapsedRealtime() - startTime
+
             val elapsedDrivingTimeSeconds = elapsedDrivingTime / 1000
 
             Text(text = formatTime(elapsedDrivingTimeSeconds))
