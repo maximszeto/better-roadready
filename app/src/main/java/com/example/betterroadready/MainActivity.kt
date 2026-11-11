@@ -297,7 +297,6 @@ fun formatTime(totalSeconds: Long): String {
     )
 }
 
-fun randomID(): String = UUID.randomUUID().toString()
 
 class Drive (val id: String = "",
              var duration: Long = 0L,
