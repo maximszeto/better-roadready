@@ -298,11 +298,11 @@ fun formatTime(totalSeconds: Long): String {
 }
 
 
-class Drive (val id: String = "",
-             var duration: Long = 0L,
-             var startTime: String = "",
-             var endTime: String = "",
-             var isNightDrive: Boolean = false)
+class Drive (val id: String = UUID.randomUUID().toString(),
+             val duration: Long,
+             val startTime: Long? = null,
+             val endTime: Long? = null,
+             val isNightDrive: Boolean = false)
         {
 }
 
