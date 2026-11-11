@@ -54,6 +54,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.navigationevent.NavigationEventInfo
 import java.util.UUID
 import java.lang.System
@@ -189,24 +190,26 @@ fun DrivingScreen() {
         ) {
             Text("Driving Screen")
 
-            var drivingTime by remember { mutableIntStateOf(0) }
+            var elapsedDrivingTime by remember { mutableLongStateOf(0L) }
 
             var isDriving by remember { mutableStateOf(false) }
 
             var drives by remember { mutableIntStateOf(0) }
 
-            var startTime: Long = 0
+            var startTime by remember { mutableLongStateOf(0L) }
 
-            var endTime: Long = 0
+            var endTime by remember { mutableLongStateOf(0L)}
 
-            Text(text = formatTime(drivingTime))
+            // Text(text = formatTime(drivingTime))
 
             Text(text = "Total Drives: $drives")
 
             Spacer(modifier = Modifier.weight(1f))
 
-            val timeInterval = SystemClock.elapsedRealtime() - startTime
-            Text(text = "$timeInterval")
+            elapsedDrivingTime = SystemClock.elapsedRealtime() - startTime
+            val elapsedDrivingTimeSeconds = elapsedDrivingTime / 1000
+
+            Text(text = formatTime(elapsedDrivingTimeSeconds))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -233,7 +236,7 @@ fun DrivingScreen() {
                            * so we reset to 0. but this also means that if isDriving is false
                            * we will not reset and the user can see their time. */
                         } else {
-                            drivingTime = 0
+                            elapsedDrivingTime = 0
                             startTime = SystemClock.elapsedRealtime()
                         }
                     },
@@ -247,10 +250,10 @@ fun DrivingScreen() {
             /* This is a coroutine that is asynchronous from the rest of the program
             * if isDriving is true we will delay a second and then add one to the driving time
             * which is 1 more second*/
-            LaunchedEffect(isDriving) {
+            LaunchedEffect(isDriving, startTime) {
                 while (isDriving) {
+                    elapsedDrivingTime = SystemClock.elapsedRealtime() - startTime
                     delay(1.seconds)
-                    drivingTime++
                 }
             }
         }
@@ -282,7 +285,7 @@ fun DrivingLogScreen(
         }
     }
 
-fun formatTime(totalSeconds: Int): String {
+fun formatTime(totalSeconds: Long): String {
     val hours = totalSeconds / 3600
     val minutes = (totalSeconds % 3600) / 60
     val seconds = totalSeconds % 60
