@@ -241,7 +241,9 @@ fun DrivingScreen() {
                             drives++
                             endTime = SystemClock.elapsedRealtime()
 
-                            val NewDrive = Drive(randomID(), elapsedDrivingTimeSeconds, startTime, endTime, isNightDrive)
+                            val newDrive = Drive(randomID(), elapsedDrivingTimeSeconds, startTime, endTime, isNightDrive)
+
+                            drivingList.add(newDrive)
                             /* if isDriving is true that means the user just started a new drive
                            * so we reset to 0. but this also means that if isDriving is false
                            * we will not reset and the user can see their time. */
