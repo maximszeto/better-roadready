@@ -309,6 +309,8 @@ fun formatTime(totalSeconds: Long): String {
 
 fun randomID(): String = UUID.randomUUID().toString()
 
+val drivingList = mutableListOf<Drive>()
+
 class Drive (val id: String = "",
              val duration: Long,
              val startTime: Long,
