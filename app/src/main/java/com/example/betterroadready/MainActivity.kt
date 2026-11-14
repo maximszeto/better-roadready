@@ -292,6 +292,10 @@ fun DrivingLogScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
+            Text(for (drive in drivingList){
+
+            })
+
 
             }
         }
