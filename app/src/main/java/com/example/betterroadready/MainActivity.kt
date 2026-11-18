@@ -289,11 +289,13 @@ fun DrivingLogScreen(
             ) {
             Text("Driving Log")
 
+            for (drive in drivingList)
+                Text("Drive Length = ${formatTime(drive.duration)}")
+
 
             Spacer(modifier = Modifier.weight(1f))
 
-            for (drive in drivingList)
-                Text("${drive.duration}")
+
             }
         }
     }
