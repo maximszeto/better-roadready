@@ -242,7 +242,7 @@ fun DrivingScreen() {
                             drives++
                             endTime = SystemClock.elapsedRealtime()
 
-                            val newDrive = Drive(randomID(), elapsedDrivingTimeSeconds, startTime, endTime, isNightDrive)
+                            val newDrive = Drive(randomID(), java.time.LocalDate.now(), elapsedDrivingTimeSeconds, startTime, endTime, isNightDrive)
 
                             drivingList.add(newDrive)
                             /* if isDriving is true that means the user just started a new drive
@@ -291,7 +291,7 @@ fun DrivingLogScreen(
             Text("Driving Log")
 
             for (drive in drivingList)
-                Text("Drive Length: ${formatTime(drive.duration)}")
+                Text("Drive Date: ${drive.date} Drive Length: ${formatTime(drive.duration)}")
 
 
             Spacer(modifier = Modifier.weight(1f))
@@ -318,6 +318,7 @@ fun randomID(): String = UUID.randomUUID().toString()
 val drivingList = mutableListOf<Drive>()
 
 class Drive (val id: String = "",
+             val date: LocalDate,
              val duration: Long,
              val startTime: Long,
              val endTime: Long,
