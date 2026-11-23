@@ -59,6 +59,8 @@ import androidx.navigationevent.NavigationEventInfo
 import java.util.UUID
 import java.lang.System
 import java.time.LocalDate
+import androidx.room3.Entity
+import androidx.room3.PrimaryKey
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
