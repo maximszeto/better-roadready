@@ -61,6 +61,8 @@ import java.lang.System
 import java.time.LocalDate
 import androidx.room3.Entity
 import androidx.room3.PrimaryKey
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -244,7 +246,13 @@ fun DrivingScreen() {
                             drives++
                             endTime = SystemClock.elapsedRealtime()
 
-                            val newDrive = Drive(randomID(), java.time.LocalDate.now(), elapsedDrivingTimeSeconds, startTime, endTime, isNightDrive)
+                            val newDrive = Drive(
+                                id = randomID(),
+                                duration = elapsedDrivingTimeSeconds,
+                                startTime = startTime,
+                                endTime = endTime,
+                                isNightDrive = isNightDrive
+                            )
 
                             drivingList.add(newDrive)
                             /* if isDriving is true that means the user just started a new drive
@@ -317,20 +325,21 @@ fun formatTime(totalSeconds: Long): String {
 
 fun randomID(): String = UUID.randomUUID().toString()
 
-val drivingList = mutableListOf<Drive>()
-
 @Entity(tableName = "drives")
 data class Drive (
     @PrimaryKey
     val id: String = "",
 
-    val date: LocalDate,
+    val date: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()),
     val duration: Long,
     val startTime: Long,
     val endTime: Long,
     val isNightDrive: Boolean = false)
-        {
+{
 }
+
+val drivingList = mutableListOf<Drive>()
+
 
 @Preview(
     showBackground = true,
