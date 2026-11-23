@@ -319,12 +319,16 @@ fun randomID(): String = UUID.randomUUID().toString()
 
 val drivingList = mutableListOf<Drive>()
 
-class Drive (val id: String = "",
-             val date: LocalDate,
-             val duration: Long,
-             val startTime: Long,
-             val endTime: Long,
-             val isNightDrive: Boolean = false)
+@Entity(tableName = "drives")
+data class Drive (
+    @PrimaryKey
+    val id: String = "",
+
+    val date: LocalDate,
+    val duration: Long,
+    val startTime: Long,
+    val endTime: Long,
+    val isNightDrive: Boolean = false)
         {
 }
 
