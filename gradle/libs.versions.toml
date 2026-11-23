@@ -10,6 +10,8 @@ kotlin = "2.4.20"
 composeBom = "2026.09.00"
 navigationCompose = "2.10.2"
 material-icons-extended = "1.7.8"
+room3 = "3.0.3"
+ksp = "2.1.0-1.0.29"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -28,8 +30,10 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 navCompose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 materialIconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
+androidx-room3-runtime = { group = "androidx.room3", name = "room3-runtime", version.ref = "room3" }
+androidx-room3-compiler = { group = "androidx.room3", name = "room3-compiler", version.ref = "room3" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
