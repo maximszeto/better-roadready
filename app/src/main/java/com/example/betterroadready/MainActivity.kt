@@ -355,6 +355,14 @@ interface DriveDao {
     fun observeAllDrives(): Flow<List<Drive>>
 }
 
+@Database(
+    entities = [Drive::class],
+    version = 1
+)
+abstract class DriveDatabase : RoomDatabase() {
+    abstract fun driveDao(): DriveDao
+}
+
 
 @Preview(
     showBackground = true,
