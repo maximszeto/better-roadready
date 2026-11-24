@@ -67,6 +67,8 @@ import androidx.room3.Dao
 import androidx.room3.Insert
 import androidx.room3.Query
 import kotlinx.coroutines.flow.Flow
+import androidx.room3.Database
+import androidx.room3.RoomDatabase
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
