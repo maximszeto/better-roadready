@@ -344,6 +344,15 @@ data class Drive (
 
 val drivingList = mutableListOf<Drive>()
 
+@Dao
+interface DriveDao {
+    @Insert
+    suspend fun insert(drive: Drive)
+
+    @Query("SELECT * FROM drives ORDER BY startTime DESC")
+    fun observeAllDrives(): Flow<List<Drive>>
+}
+
 
 @Preview(
     showBackground = true,
