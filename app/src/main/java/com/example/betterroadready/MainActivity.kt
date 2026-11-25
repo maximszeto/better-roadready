@@ -306,9 +306,7 @@ fun DrivingScreen() {
 }
 
 @Composable
-fun DrivingLogScreen(
-
-) {
+fun DrivingLogScreen() {
     Surface(modifier = Modifier.fillMaxSize(),
         color = Color.Black,
         contentColor = Color.White
