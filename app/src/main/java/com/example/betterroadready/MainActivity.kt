@@ -73,6 +73,7 @@ import android.content.Context
 import androidx.room3.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.rememberCoroutineScope
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -189,6 +190,13 @@ fun HomeScreen() {
 
 @Composable
 fun DrivingScreen() {
+
+    val context = LocalContext.current
+    val driveDao = remember {
+        DriveDatabaseProvider.getDatabase(context).driveDao()
+    }
+    val scope = rememberCoroutineScope()
+    
     Surface(modifier = Modifier.fillMaxSize(),
             color = Color.Black,
             contentColor = Color.White
