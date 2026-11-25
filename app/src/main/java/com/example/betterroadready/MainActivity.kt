@@ -74,6 +74,7 @@ import androidx.room3.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -264,15 +265,18 @@ fun DrivingScreen() {
                             drives++
                             endTime = SystemClock.elapsedRealtime()
 
-                            val newDrive = Drive(
-                                id = randomID(),
-                                duration = elapsedDrivingTimeSeconds,
-                                startTime = startTime,
-                                endTime = endTime,
-                                isNightDrive = isNightDrive
-                            )
 
-                            drivingList.add(newDrive)
+                            scope.launch {
+                                driveDao.insert(
+                                    Drive(
+                                        id = randomID(),
+                                        duration = elapsedDrivingTimeSeconds,
+                                        startTime = startTime,
+                                        endTime = endTime,
+                                        isNightDrive = isNightDrive
+                                    )
+                                )
+                            }
                             /* if isDriving is true that means the user just started a new drive
                            * so we reset to 0. but this also means that if isDriving is false
                            * we will not reset and the user can see their time. */
