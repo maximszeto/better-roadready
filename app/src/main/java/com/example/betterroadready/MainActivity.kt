@@ -70,12 +70,15 @@ import kotlinx.coroutines.flow.Flow
 import androidx.room3.Database
 import androidx.room3.RoomDatabase
 import android.content.Context
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.collectAsState
 import androidx.room3.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
+import kotlin.time.toDuration
+import androidx.compose.foundation.lazy.items
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -322,6 +325,14 @@ fun DrivingLogScreen() {
         contentColor = Color.White
 
     ) {
+        LazyColumn {
+            items(drives) { drive ->
+                Text("Drive Date: ${drive.date} Drive Length: ${formatTime(drive.duration)}"
+                )
+            }
+        }
+
+
         Column(modifier = Modifier.fillMaxSize()
             .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
