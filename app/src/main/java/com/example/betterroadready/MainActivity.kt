@@ -366,6 +366,21 @@ abstract class DriveDatabase : RoomDatabase() {
     abstract fun driveDao(): DriveDao
 }
 
+object DriveDatabaseProvider {
+    @Volatile
+    private var instance: DriveDatabase? = null
+
+    fun getDatabase(context: Context): DriveDatabase =
+        instance ?: synchronized(this) {
+            instance ?: Room.databaseBuilder<DriveDatabase>(
+                context.applicationContext,
+                "drives.db"
+            )
+                .setDriver(AndroidSQLiteDriver())
+                .build()
+                .also { instance = it}
+        }
+}
 
 @Preview(
     showBackground = true,
