@@ -70,6 +70,7 @@ import kotlinx.coroutines.flow.Flow
 import androidx.room3.Database
 import androidx.room3.RoomDatabase
 import android.content.Context
+import androidx.compose.runtime.collectAsState
 import androidx.room3.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import androidx.compose.ui.platform.LocalContext
@@ -307,6 +308,15 @@ fun DrivingScreen() {
 
 @Composable
 fun DrivingLogScreen() {
+
+    val context = LocalContext.current
+    val driveDao = remember {
+        DriveDatabaseProvider.getDatabase(context).driveDao()
+    }
+
+    val drives by driveDao.observeAllDrives()
+        .collectAsState(initial = emptyList())
+
     Surface(modifier = Modifier.fillMaxSize(),
         color = Color.Black,
         contentColor = Color.White
@@ -320,7 +330,7 @@ fun DrivingLogScreen() {
             ) {
             Text("Driving Log")
 
-            for (drive in drivingList)
+            for (drive in drives)
                 Text("Drive Date: ${drive.date} Drive Length: ${formatTime(drive.duration)}")
 
 
