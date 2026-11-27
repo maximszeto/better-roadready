@@ -140,7 +140,8 @@ fun AppNavigation() {
                        },
                        colors = NavigationBarItemDefaults.colors(
                            selectedIconColor = Color.White,
-                           selectedTextColor = Color.White
+                           selectedTextColor = Color.White,
+                           indicatorColor = Color.Gray
                        )
                    )
                 }
