@@ -80,6 +80,8 @@ import kotlinx.coroutines.launch
 import kotlin.time.toDuration
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
