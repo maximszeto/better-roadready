@@ -79,6 +79,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.time.toDuration
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.NavigationBarItemDefaults
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,7 +109,7 @@ fun AppNavigation() {
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            NavigationBar (containerColor = Color.Black) {
                 // Read the current backstack entry to find out what screen we are on right now
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
