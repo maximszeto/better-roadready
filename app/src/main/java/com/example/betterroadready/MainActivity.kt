@@ -362,7 +362,8 @@ fun DrivingLogScreen() {
             }
 
             items(drives) { drive ->
-                Text("Drive Date: ${drive.date} Drive Length: ${formatTime(drive.duration)}"
+                Text(text = if (drive.isNightDrive) "${drive.date} Duration: ${formatTime(drive.duration)}, Night Drive"
+                else "${drive.date} Duration: ${formatTime(drive.duration)}"
                 )
             }
         }
