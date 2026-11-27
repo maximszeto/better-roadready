@@ -323,14 +323,16 @@ fun DrivingLogScreen() {
     Surface(modifier = Modifier.fillMaxSize(),
         color = Color.Black,
         contentColor = Color.White
-
     ) {
-        Text(text = "Driving Log")
 
         LazyColumn(modifier = Modifier.fillMaxSize()
             .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(25.dp)) {
+            item {
+                Text(text = "Driving Log")
+            }
+
             items(drives) { drive ->
                 Text("Drive Date: ${drive.date} Drive Length: ${formatTime(drive.duration)}"
                 )
