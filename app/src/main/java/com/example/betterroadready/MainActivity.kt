@@ -325,32 +325,19 @@ fun DrivingLogScreen() {
         contentColor = Color.White
 
     ) {
-        LazyColumn {
+        Text(text = "Driving Log")
+
+        LazyColumn(modifier = Modifier.fillMaxSize()
+            .padding(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(25.dp)) {
             items(drives) { drive ->
                 Text("Drive Date: ${drive.date} Drive Length: ${formatTime(drive.duration)}"
                 )
             }
         }
-
-
-        Column(modifier = Modifier.fillMaxSize()
-            .padding(32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(25.dp)
-
-            ) {
-            Text("Driving Log")
-
-            for (drive in drives)
-                Text("Drive Date: ${drive.date} Drive Length: ${formatTime(drive.duration)}")
-
-
-            Spacer(modifier = Modifier.weight(1f))
-
-
-            }
-        }
     }
+}
 
 fun formatTime(totalSeconds: Long): String {
     val hours = totalSeconds / 3600
