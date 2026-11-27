@@ -70,6 +70,7 @@ import kotlinx.coroutines.flow.Flow
 import androidx.room3.Database
 import androidx.room3.RoomDatabase
 import android.content.Context
+import androidx.activity.SystemBarStyle
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.collectAsState
 import androidx.room3.Room
@@ -86,7 +87,17 @@ import androidx.core.view.WindowInsetsControllerCompat
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        WindowCompat.setDecorFitsSystemWindows(window, true)
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+
+        WindowInsetsControllerCompat(window, window.decorView)
+            .isAppearanceLightStatusBars = true // dark time/icons; false for light icons
+
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(
+                android.graphics.Color.BLACK
+            )
+        )
         setContent {
             AppNavigation()
         }
