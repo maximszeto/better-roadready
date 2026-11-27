@@ -83,6 +83,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.compose.material3.ButtonDefaults
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -263,7 +264,11 @@ fun DrivingScreen() {
             Button(
                 onClick = {
                     isNightDrive = !isNightDrive
-                }
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Gray,
+                    contentColor = Color.White
+                )
             ) {
                 Text(text = if (isNightDrive) "Night Drive: True" else "Night Drive: False")
             }
@@ -308,6 +313,10 @@ fun DrivingScreen() {
                             startTime = SystemClock.elapsedRealtime()
                         }
                     },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Gray,
+                        contentColor = Color.White
+                    )
 
                     ) {
                     Text(text = if (!isDriving) "Start Drive" else "End Drive")
