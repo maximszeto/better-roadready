@@ -1,13 +1,20 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.androidx.room3)
     alias(libs.plugins.ksp)
+}
+
+room3 {
+    schemaDirectory("$projectDir/schemas")
 }
 
 android {
     namespace = "com.example.betterroadready"
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 2
+        }
     }
 
     defaultConfig {
